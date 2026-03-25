@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/proto/">
+    <File Path="calculator.proto" />
+    <File Path="dummy.proto" />
+    <File Path="greeting.proto" />
+  </Folder>
+  <Project Path="client/client.csproj" />
+  <Project Path="server/server.csproj" />
+</Solution>
