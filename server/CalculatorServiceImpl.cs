@@ -13,5 +13,27 @@ namespace server
                 Result = request.A + request.B
             });
         }
+
+        public override async Task PrimeNumberDecomposition(
+            PrimeNumberDecompositionRequest request,
+            IServerStreamWriter<PrimeNumberDecompositionResponse> responseStream,
+            ServerCallContext context)
+        {
+            int k = 2;
+            int n = request.Number;
+
+            while (n > 1)
+            {
+                if (n % k == 0)
+                {
+                    await responseStream.WriteAsync(new PrimeNumberDecompositionResponse { Result = k });
+                    n /= k;
+                }
+                else
+                {
+                    k += 1;
+                }
+            }
+        }
     }
 }

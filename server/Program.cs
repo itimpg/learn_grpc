@@ -15,8 +15,8 @@ try
         },
         Services =
         {
-            //Greet.GreetingService.BindService(new GreetingServiceImpl())
-            Calculator.CalculatorService.BindService(new CalculatorServiceImpl())
+            Greet.GreetingService.BindService(new GreetingServiceImpl()),
+            Calculator.CalculatorService.BindService(new CalculatorServiceImpl()),
         }
     };
     server.Start();
