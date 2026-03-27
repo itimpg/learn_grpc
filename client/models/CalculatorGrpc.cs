@@ -53,6 +53,10 @@ namespace Calculator {
     static readonly grpc::Marshaller<global::Calculator.PrimeNumberDecompositionRequest> __Marshaller_calculator_PrimeNumberDecompositionRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.PrimeNumberDecompositionRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Calculator.PrimeNumberDecompositionResponse> __Marshaller_calculator_PrimeNumberDecompositionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.PrimeNumberDecompositionResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Calculator.ComputeAverageRequest> __Marshaller_calculator_ComputeAverageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Calculator.ComputeAverageResponse> __Marshaller_calculator_ComputeAverageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse> __Method_Sum = new grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse>(
@@ -69,6 +73,14 @@ namespace Calculator {
         "PrimeNumberDecomposition",
         __Marshaller_calculator_PrimeNumberDecompositionRequest,
         __Marshaller_calculator_PrimeNumberDecompositionResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse> __Method_ComputeAverage = new grpc::Method<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(
+        grpc::MethodType.ClientStreaming,
+        __ServiceName,
+        "ComputeAverage",
+        __Marshaller_calculator_ComputeAverageRequest,
+        __Marshaller_calculator_ComputeAverageResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -88,6 +100,12 @@ namespace Calculator {
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task PrimeNumberDecomposition(global::Calculator.PrimeNumberDecompositionRequest request, grpc::IServerStreamWriter<global::Calculator.PrimeNumberDecompositionResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::IAsyncStreamReader<global::Calculator.ComputeAverageRequest> requestStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -151,6 +169,16 @@ namespace Calculator {
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_PrimeNumberDecomposition, null, options, request);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncClientStreamingCall<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ComputeAverage(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncClientStreamingCall<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncClientStreamingCall(__Method_ComputeAverage, null, options);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -166,7 +194,8 @@ namespace Calculator {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Sum, serviceImpl.Sum)
-          .AddMethod(__Method_PrimeNumberDecomposition, serviceImpl.PrimeNumberDecomposition).Build();
+          .AddMethod(__Method_PrimeNumberDecomposition, serviceImpl.PrimeNumberDecomposition)
+          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -178,6 +207,7 @@ namespace Calculator {
     {
       serviceBinder.AddMethod(__Method_Sum, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calculator.SumRequest, global::Calculator.SumResponse>(serviceImpl.Sum));
       serviceBinder.AddMethod(__Method_PrimeNumberDecomposition, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Calculator.PrimeNumberDecompositionRequest, global::Calculator.PrimeNumberDecompositionResponse>(serviceImpl.PrimeNumberDecomposition));
+      serviceBinder.AddMethod(__Method_ComputeAverage, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(serviceImpl.ComputeAverage));
     }
 
   }

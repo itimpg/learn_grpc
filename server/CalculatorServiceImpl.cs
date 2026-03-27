@@ -26,7 +26,7 @@ namespace server
             {
                 if (n % k == 0)
                 {
-                    await responseStream.WriteAsync(new PrimeNumberDecompositionResponse { Result = k });
+                    await responseStream.WriteAsync(new PrimeNumberDecompositionResponse { PrimeFactor = k });
                     n /= k;
                 }
                 else
@@ -34,6 +34,19 @@ namespace server
                     k += 1;
                 }
             }
+        }
+
+        public override async Task<ComputeAverageResponse> ComputeAverage(
+            IAsyncStreamReader<ComputeAverageRequest> requestStream,
+            ServerCallContext context)
+        {
+            List<int> Numbers = new List<int>();
+            while (await requestStream.MoveNext())
+            {
+                Numbers.Add(requestStream.Current.Number);
+            }
+
+            return new ComputeAverageResponse { Average = Numbers.Average() };
         }
     }
 }

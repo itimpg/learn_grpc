@@ -3,7 +3,7 @@ using server;
 
 const int Port = 50051;
 
-Server server = null;
+Server? server = null;
 
 try
 {

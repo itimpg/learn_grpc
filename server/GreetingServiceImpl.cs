@@ -1,5 +1,6 @@
 ﻿using Greet;
 using Grpc.Core;
+using System.Text;
 using static Greet.GreetingService;
 
 namespace server
@@ -25,6 +26,21 @@ namespace server
                 var result = $"{i + 1}: Hello, {request.Greeting.FirstName} {request.Greeting.LastName}";
                 await responseStream.WriteAsync(new GreetingManyTimesResponse { Result = result });
             }
+        }
+
+        public override async Task<LongGreetResponse> LongGreet(
+            IAsyncStreamReader<LongGreetRequest> requestStream,
+            ServerCallContext context)
+        {
+            StringBuilder sb = new StringBuilder();
+            while (await requestStream.MoveNext())
+            {
+                var g = requestStream.Current.Greeting;
+
+                sb.AppendLine($"Hello {g.FirstName} {g.LastName}");
+            }
+
+            return new LongGreetResponse { Result = sb.ToString() };
         }
     }
 }
