@@ -2,22 +2,7 @@
 using Greet;
 using Grpc.Core;
 
-const string target = "127.0.0.1:50051";
-
-Channel channel = new Channel(target, ChannelCredentials.Insecure);
-
-await channel.ConnectAsync().ContinueWith(task =>
-{
-    if (task.IsCompletedSuccessfully)
-    {
-        Console.WriteLine($"Successfully connected to {target}");
-    }
-    else
-    {
-        Console.WriteLine($"Failed to connect to {target}: {task.Exception?.GetBaseException().Message}");
-    }
-});
-
+var HandleGreetingClient = async (Channel channel) =>
 {
     var greetingClient = new GreetingService.GreetingServiceClient(channel);
 
@@ -81,8 +66,9 @@ await channel.ConnectAsync().ContinueWith(task =>
     await responseReaderTask;
 
     Console.WriteLine("");
-}
+};
 
+var HandleCalculatorClient = async (Channel channel) =>
 {
     Console.WriteLine($"====Unary Example====");
     var client = new CalculatorService.CalculatorServiceClient(channel);
@@ -139,7 +125,26 @@ await channel.ConnectAsync().ContinueWith(task =>
     await findMaxStream.RequestStream.CompleteAsync();
     await findMaxResponseTask;
     Console.WriteLine("");
-}
+};
+
+const string target = "127.0.0.1:50051";
+
+Channel channel = new Channel(target, ChannelCredentials.Insecure);
+
+await channel.ConnectAsync().ContinueWith(task =>
+{
+    if (task.IsCompletedSuccessfully)
+    {
+        Console.WriteLine($"Successfully connected to {target}");
+    }
+    else
+    {
+        Console.WriteLine($"Failed to connect to {target}: {task.Exception?.GetBaseException().Message}");
+    }
+});
+
+await HandleCalculatorClient(channel);
+await HandleGreetingClient(channel);
 
 await channel.ShutdownAsync();
 Console.ReadKey();
