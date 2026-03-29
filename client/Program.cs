@@ -53,6 +53,34 @@ await channel.ConnectAsync().ContinueWith(task =>
     Console.WriteLine(longGreetResponse.Result);
     Console.WriteLine("");
 
+    var stream = greetingClient.GreetEveryone();
+
+    var responseReaderTask = Task.Run(async () =>
+    {
+        while (await stream.ResponseStream.MoveNext())
+        {
+            Console.WriteLine($"Received : {stream.ResponseStream.Current.Result}");
+        }
+    });
+
+    Greeting[] greetings = new[]
+    {
+        new Greeting { FirstName = "iTim", LastName = "Dev" },
+        new Greeting { FirstName = "John", LastName = "Doe" },
+        new Greeting { FirstName = "Jane", LastName = "Smith" },
+        new Greeting { FirstName = "Alice", LastName = "Johnson" },
+        new Greeting { FirstName = "Bob", LastName = "Brown" }
+    };
+
+    foreach (var g in greetings)
+    {
+        Console.WriteLine($"Sending : {g}");
+        await stream.RequestStream.WriteAsync(new GreetEveryoneRequest { Greeting = g });
+    }
+    await stream.RequestStream.CompleteAsync();
+    await responseReaderTask;
+
+    Console.WriteLine("");
 }
 
 {
@@ -87,6 +115,29 @@ await channel.ConnectAsync().ContinueWith(task =>
     var avgResponse = await avgRequestStream.ResponseAsync;
     Console.Write($"Avg of {string.Join(",", inputs)} is :");
     Console.WriteLine(avgResponse.Average);
+    Console.WriteLine("");
+
+
+    Console.WriteLine($"====Bi-Directional Streaming Example====");
+
+    var findMaxStream = client.FindMaximum();
+    var findMaxResponseTask = Task.Run(async () =>
+    {
+        while (await findMaxStream.ResponseStream.MoveNext())
+        {
+            var payload = findMaxStream.ResponseStream.Current.Result;
+            Console.WriteLine($"Max number : {payload}");
+        }
+    });
+
+    var maxInputs = new[] { 1, 5, 3, 6, 2, 20 };
+    foreach (var input in maxInputs)
+    {
+        Console.WriteLine($"Sending : {input}");
+        await findMaxStream.RequestStream.WriteAsync(new FindMaximumRequest { Number = input });
+    }
+    await findMaxStream.RequestStream.CompleteAsync();
+    await findMaxResponseTask;
     Console.WriteLine("");
 }
 

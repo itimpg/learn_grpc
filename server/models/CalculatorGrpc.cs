@@ -57,6 +57,10 @@ namespace Calculator {
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageRequest> __Marshaller_calculator_ComputeAverageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageResponse> __Marshaller_calculator_ComputeAverageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Calculator.FindMaximumRequest> __Marshaller_calculator_FindMaximumRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaximumRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Calculator.FindMaximumResponse> __Marshaller_calculator_FindMaximumResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaximumResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse> __Method_Sum = new grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse>(
@@ -82,6 +86,14 @@ namespace Calculator {
         __Marshaller_calculator_ComputeAverageRequest,
         __Marshaller_calculator_ComputeAverageResponse);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Calculator.FindMaximumRequest, global::Calculator.FindMaximumResponse> __Method_FindMaximum = new grpc::Method<global::Calculator.FindMaximumRequest, global::Calculator.FindMaximumResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "FindMaximum",
+        __Marshaller_calculator_FindMaximumRequest,
+        __Marshaller_calculator_FindMaximumResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -106,6 +118,12 @@ namespace Calculator {
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::IAsyncStreamReader<global::Calculator.ComputeAverageRequest> requestStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task FindMaximum(grpc::IAsyncStreamReader<global::Calculator.FindMaximumRequest> requestStream, grpc::IServerStreamWriter<global::Calculator.FindMaximumResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -179,6 +197,16 @@ namespace Calculator {
       {
         return CallInvoker.AsyncClientStreamingCall(__Method_ComputeAverage, null, options);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calculator.FindMaximumRequest, global::Calculator.FindMaximumResponse> FindMaximum(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FindMaximum(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calculator.FindMaximumRequest, global::Calculator.FindMaximumResponse> FindMaximum(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_FindMaximum, null, options);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -195,7 +223,8 @@ namespace Calculator {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Sum, serviceImpl.Sum)
           .AddMethod(__Method_PrimeNumberDecomposition, serviceImpl.PrimeNumberDecomposition)
-          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage).Build();
+          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage)
+          .AddMethod(__Method_FindMaximum, serviceImpl.FindMaximum).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -208,6 +237,7 @@ namespace Calculator {
       serviceBinder.AddMethod(__Method_Sum, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calculator.SumRequest, global::Calculator.SumResponse>(serviceImpl.Sum));
       serviceBinder.AddMethod(__Method_PrimeNumberDecomposition, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Calculator.PrimeNumberDecompositionRequest, global::Calculator.PrimeNumberDecompositionResponse>(serviceImpl.PrimeNumberDecomposition));
       serviceBinder.AddMethod(__Method_ComputeAverage, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(serviceImpl.ComputeAverage));
+      serviceBinder.AddMethod(__Method_FindMaximum, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::Calculator.FindMaximumRequest, global::Calculator.FindMaximumResponse>(serviceImpl.FindMaximum));
     }
 
   }
